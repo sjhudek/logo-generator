@@ -2,8 +2,6 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 const { circle, triangle, square } = require("./lib/shapes.js");
 
-console.log("hi");
-
 const questions = [
   {
     message: "Enter a maximum of three (3) characters.",
@@ -38,23 +36,20 @@ const questions = [
 ];
 
 function generateSVG(shape, text, textColor, shapeColor) {
-  // Generate SVG code based on the shape and colors provided
   let svgCode = "";
 
   if (shape === "circle") {
-    svgCode = circle(text, textColor, shapeColor);
+    svgCode = circle(150, 100, 50, shapeColor, textColor, text);
   } else if (shape === "triangle") {
-    svgCode = triangle(text, textColor, shapeColor);
+    svgCode = triangle(50, 150, 150, 50, 250, 150, shapeColor, textColor, text);
   } else if (shape === "square") {
-    svgCode = square(text, textColor, shapeColor);
+    svgCode = square(100, 50, 100, shapeColor, textColor, text);
   }
 
-  // Write SVG code to a file named "logo.svg"
-  require("fs").writeFile("logo.svg", svgCode, (err) => {
+  fs.writeFile("logo.svg", svgCode, (err) => {
     if (err) throw err;
     console.log("SVG file created: logo.svg");
 
-    // Open the SVG file in the default application
     const { exec } = require("child_process");
     exec("open logo.svg");
   });
