@@ -1,6 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const { circle, triangle, square } = require("./lib/shapes.js");
+const { Circle, Triangle, Square } = require("./lib/shapes.js");
 
 const questions = [
   {
@@ -39,11 +39,24 @@ function generateSVG(shape, text, textColor, shapeColor) {
   let svgCode = "";
 
   if (shape === "circle") {
-    svgCode = circle(150, 100, 50, shapeColor, textColor, text);
+    const circle = new Circle(150, 100, 50, shapeColor, textColor, text);
+    svgCode = circle.draw();
   } else if (shape === "triangle") {
-    svgCode = triangle(50, 150, 150, 50, 250, 150, shapeColor, textColor, text);
+    const triangle = new Triangle(
+      50,
+      150,
+      150,
+      50,
+      250,
+      150,
+      shapeColor,
+      textColor,
+      text
+    );
+    svgCode = triangle.draw();
   } else if (shape === "square") {
-    svgCode = square(100, 50, 100, shapeColor, textColor, text);
+    const square = new Square(100, 50, 100, shapeColor, textColor, text);
+    svgCode = square.draw();
   }
 
   fs.writeFile("logo.svg", svgCode, (err) => {
